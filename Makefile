@@ -3,11 +3,8 @@
 build:
 	docker compose build
 
-run:
+up:
 	docker compose up -d
-
-stop:
-	docker compose down
 
 restart:
 	docker compose down

@@ -8,6 +8,7 @@ gem "sinatra-contrib", "~> 4.0"
 gem "sequel", "~> 5.84"
 gem "pg", "~> 1.5"
 gem "rack", "~> 3.0"
+gem "rackup"
 gem "rake", "~> 13.2"
 gem "json", "~> 2.7"
 
