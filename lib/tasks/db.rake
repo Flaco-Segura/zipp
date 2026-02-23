@@ -1,3 +1,4 @@
+require_relative '../../config/database'
 require "fileutils"
 
 MIGRATIONS_DIR = File.expand_path("../../db/migrations", __dir__)

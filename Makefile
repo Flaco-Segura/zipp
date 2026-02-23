@@ -3,7 +3,7 @@ export
 POSTGRES_USER ?= zipp
 POSTGRES_DB ?= zipp_development
 
-.PHONY: build run stop restart bundle logs ps clean migrate rollback
+.PHONY: build run stop restart bundle logs ps clean migrate rollback test
 
 build:
 	docker compose build
@@ -39,3 +39,5 @@ console-app:
 console-db:
 	docker compose exec -it db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
 
+test:
+	docker compose run --rm -e APP_ENV=test app bundle exec rspec
