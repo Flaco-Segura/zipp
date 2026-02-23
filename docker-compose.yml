@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: zipp_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: zipp
+      POSTGRES_PASSWORD: zipp_secret
+      POSTGRES_DB: zipp_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zipp -d zipp_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zipp_app
+    restart: unless-stopped
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgres://zipp:zipp_secret@db:5432/zipp_development
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    command: bundle exec puma -C config/puma.rb
+
+volumes:
+  postgres_data:
