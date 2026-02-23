@@ -16,7 +16,8 @@ class UsersRoutes < BaseRoutes
     if @user.valid?
       begin
         @user.save
-        "Customer created successfully! ID: #{@user.id}"
+        session[:notice] = "Customer created successfully! You can now log in."
+        redirect '/'
       rescue Sequel::UniqueConstraintViolation
         @error = "Email is already taken"
         erb :'users/new'

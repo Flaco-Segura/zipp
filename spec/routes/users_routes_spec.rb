@@ -16,6 +16,10 @@ RSpec.describe UsersRoutes, type: :request do
           post '/users', { first_name: 'John', last_name: 'Doe', email: 'john@example.com' }
         }.to change { User.where(type: 'customer').count }.by(1)
 
+        expect(last_response).to be_redirect
+        expect(last_response.location).to include('/')
+        
+        follow_redirect!
         expect(last_response).to be_ok
         expect(last_response.body).to include('Customer created successfully')
       end
