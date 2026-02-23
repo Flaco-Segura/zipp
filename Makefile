@@ -27,3 +27,6 @@ rollback:
 
 clean:
 	docker compose down -v
+
+console:
+	docker compose run --rm app bundle exec bash
