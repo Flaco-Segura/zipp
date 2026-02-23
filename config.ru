@@ -1,3 +1,9 @@
-require_relative 'app'
+require_relative 'config/environment'
 
-run App
+map '/users' do
+  run UsersRoutes
+end
+
+map '/' do
+  run BaseRoutes
+end
