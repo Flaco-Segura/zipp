@@ -1,3 +1,8 @@
+-include .env
+export
+POSTGRES_USER ?= zipp
+POSTGRES_DB ?= zipp_development
+
 .PHONY: build run stop restart bundle logs ps clean migrate rollback
 
 build:
@@ -28,5 +33,9 @@ rollback:
 clean:
 	docker compose down -v
 
-console:
+console-app:
 	docker compose run --rm app bundle exec bash
+
+console-db:
+	docker compose exec -it db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
+
